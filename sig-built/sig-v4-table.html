@@ -3,7 +3,7 @@
 <head><meta charset="utf-8"><title>Nxtfluencez signature v4 — table layout</title></head>
 <body style="margin:0;padding:0;background:#ffffff;">
 <!-- One seamless 600px card. Table layout forces every row to exactly 600px in Gmail (divs render uneven rows in Gmail mobile). All 9 pieces keep their own link. -->
-<table width="600" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+<table id="sig-card" width="600" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
   <tr>
     <td style="padding:0;font-size:0;line-height:0;"><a href="https://nxtfluencez.com" target="_blank"><img src="https://raw.githubusercontent.com/chandrakishoresingh640-alt/nxtfluencez-email-assets/main/sig-built/sig-v4-header-600.gif" width="600" height="214" alt="Nxtfluencez" border="0" style="display:block;border:0;"></a></td>
   </tr>
@@ -34,5 +34,26 @@
     <td style="padding:0;font-size:0;line-height:0;"><a href="https://mailwright.tech/book/nxtfluencez" target="_blank"><img src="https://raw.githubusercontent.com/chandrakishoresingh640-alt/nxtfluencez-email-assets/main/sig-built/sig-v4-book.png" width="600" height="52" alt="Book a Meeting" border="0" style="display:block;border:0;"></a></td>
   </tr>
 </table>
+<div style="margin:16px 0;font-family:sans-serif;">
+  <button id="copy-btn" style="padding:10px 18px;font-size:16px;cursor:pointer;">Copy signature</button>
+  <span id="copy-status" style="margin-left:12px;font-size:14px;"></span>
+</div>
+<script>
+document.getElementById('copy-btn').addEventListener('click', async () => {
+  const html = document.getElementById('sig-card').outerHTML;
+  const status = document.getElementById('copy-status');
+  try {
+    await navigator.clipboard.write([
+      new ClipboardItem({
+        'text/html': new Blob([html], {type: 'text/html'}),
+        'text/plain': new Blob(['Nxtfluencez - Shashank Singh, Influencer Marketing Executive'], {type: 'text/plain'})
+      })
+    ]);
+    status.textContent = 'Copied! Now paste into Gmail.';
+  } catch (e) {
+    status.textContent = 'Copy failed: ' + e;
+  }
+});
+</script>
 </body>
 </html>
